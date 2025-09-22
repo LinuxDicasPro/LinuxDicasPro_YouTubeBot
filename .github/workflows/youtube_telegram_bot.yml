@@ -1,0 +1,35 @@
+name: YouTube to Telegram Bot
+
+on:
+  schedule:
+    - cron: "0 12 * * *"
+  workflow_dispatch:
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+
+      - name: Install dependencies
+      run: pip install requests feedparser
+
+      - name: Restore last_video.json
+      uses: actions/download-artifact@v4
+      with:
+        name: state
+      continue-on-error: true
+
+      - name: Run bot
+      run: python youtube_telegram_bot.py
+
+      - name: Save last_video.json
+      uses: actions/upload-artifact@v4
+      with:
+        name: state
+        path: last_video.json
