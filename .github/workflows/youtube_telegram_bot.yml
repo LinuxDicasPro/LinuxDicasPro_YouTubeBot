@@ -2,7 +2,7 @@ name: YouTube to Telegram Bot
 
 on:
   schedule:
-    - cron: "0 17 * * *"
+    - cron: "0 21 * * *"
   workflow_dispatch:
 
 jobs:
@@ -31,6 +31,7 @@ jobs:
           CHAT_ID: ${{ secrets.CHAT_ID }}
           THREAD_ID: ${{ secrets.THREAD_ID }}
           CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
         run: python youtube_telegram_bot.py
 
       - name: Save last_video.json
