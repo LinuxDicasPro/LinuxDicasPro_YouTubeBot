@@ -67,14 +67,14 @@ else:
 
         if video_status == "public":
             msg = f"Novo vídeo no canal! 🎥\n{title}\n{link}"
-            #requests.post(
-                #f"https://api.telegram.org/bot{TOKEN}/sendMessage",
-                #json={
-                    #"chat_id": CHAT_ID,
-                    #"message_thread_id": int(THREAD_ID),
-                    #"text": msg
-                #}
-            #)
+            requests.post(
+                f"https://api.telegram.org/bot{TOKEN}/sendMessage",
+                json={
+                    "chat_id": CHAT_ID,
+                    "message_thread_id": int(THREAD_ID),
+                    "text": msg
+                }
+            )
             print("Mensagem enviada para o Telegram.")
             save_last_video(video_id)
         else:
