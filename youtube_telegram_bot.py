@@ -16,7 +16,6 @@ url_feed = f"https://www.youtube.com/feeds/videos.xml?channel_id={CHANNEL_ID}"
 
 
 def load_last_video():
-    """Carrega o último vídeo notificado"""
     if os.path.exists(STATE_FILE):
         try:
             with open(STATE_FILE, "r") as f:
