@@ -19,12 +19,6 @@ jobs:
       - name: Install dependencies
         run: pip install requests feedparser
 
-      - name: Restore last_video.json
-        uses: actions/cache@v4
-        with:
-          path: last_video.json
-          key: last_video-${{ runner.os }}
-
       - name: Run bot
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
@@ -34,8 +28,13 @@ jobs:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
         run: python youtube_telegram_bot.py
 
-      - name: Save last_video.json
-        uses: actions/cache@v4
-        with:
-          path: last_video.json
-          key: last_video-${{ runner.os }}
+      - name: Commit last_video.json if changed
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add last_video.json
+          git diff --cached --quiet || git commit -m "Update last_video.json"
+          git push
+
+
+
